@@ -1,0 +1,94 @@
+{
+ "embedder": "hashing",
+ "llm": "extractive",
+ "rows": [
+  {
+   "chunk_words": 180,
+   "overlap": 30,
+   "retrieval": "dense",
+   "chunks": 12,
+   "hit@1": 0.9583333333333334,
+   "hit@3": 1.0,
+   "mrr": 0.9722222222222222,
+   "answers_when_answerable": 0.9166666666666666,
+   "abstains_when_unanswerable": 1.0
+  },
+  {
+   "chunk_words": 180,
+   "overlap": 30,
+   "retrieval": "bm25",
+   "chunks": 12,
+   "hit@1": 1.0,
+   "hit@3": 1.0,
+   "mrr": 1.0,
+   "answers_when_answerable": 0.9166666666666666,
+   "abstains_when_unanswerable": 1.0
+  },
+  {
+   "chunk_words": 180,
+   "overlap": 30,
+   "retrieval": "hybrid",
+   "chunks": 12,
+   "hit@1": 1.0,
+   "hit@3": 1.0,
+   "mrr": 1.0,
+   "answers_when_answerable": 0.9166666666666666,
+   "abstains_when_unanswerable": 1.0
+  },
+  {
+   "chunk_words": 180,
+   "overlap": 30,
+   "retrieval": "hybrid + MMR 0.7",
+   "chunks": 12,
+   "hit@1": 0.9583333333333334,
+   "hit@3": 1.0,
+   "mrr": 0.9791666666666666,
+   "answers_when_answerable": 0.9166666666666666,
+   "abstains_when_unanswerable": 1.0
+  },
+  {
+   "chunk_words": 40,
+   "overlap": 10,
+   "retrieval": "dense",
+   "chunks": 34,
+   "hit@1": 0.9583333333333334,
+   "hit@3": 1.0,
+   "mrr": 0.9791666666666666,
+   "answers_when_answerable": 0.9166666666666666,
+   "abstains_when_unanswerable": 1.0
+  },
+  {
+   "chunk_words": 40,
+   "overlap": 10,
+   "retrieval": "bm25",
+   "chunks": 34,
+   "hit@1": 1.0,
+   "hit@3": 1.0,
+   "mrr": 1.0,
+   "answers_when_answerable": 0.9166666666666666,
+   "abstains_when_unanswerable": 1.0
+  },
+  {
+   "chunk_words": 40,
+   "overlap": 10,
+   "retrieval": "hybrid",
+   "chunks": 34,
+   "hit@1": 1.0,
+   "hit@3": 1.0,
+   "mrr": 1.0,
+   "answers_when_answerable": 0.9166666666666666,
+   "abstains_when_unanswerable": 1.0
+  },
+  {
+   "chunk_words": 40,
+   "overlap": 10,
+   "retrieval": "hybrid + MMR 0.7",
+   "chunks": 34,
+   "hit@1": 0.9583333333333334,
+   "hit@3": 1.0,
+   "mrr": 0.9791666666666666,
+   "answers_when_answerable": 0.9166666666666666,
+   "abstains_when_unanswerable": 1.0
+  }
+ ]
+}

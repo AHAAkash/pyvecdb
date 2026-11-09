@@ -1,0 +1,220 @@
+{
+ "args": {
+  "dataset": "clustered",
+  "n": 10000,
+  "dim": 64,
+  "clusters": 50,
+  "queries": 200,
+  "k": 10,
+  "metric": "cosine",
+  "M": 16,
+  "efc": 100,
+  "nlist": 100,
+  "seed": 0,
+  "base": null,
+  "queries_file": null,
+  "out": "benchmarks/results"
+ },
+ "results": [
+  {
+   "method": "exact (numpy)",
+   "build_s": 0.0,
+   "param": "-",
+   "value": 0,
+   "recall": 1.0,
+   "qps": 1887.9
+  },
+  {
+   "method": "hnsw (heuristic)",
+   "build_s": 23.69,
+   "param": "ef",
+   "value": 10,
+   "recall": 0.969,
+   "qps": 4696.9
+  },
+  {
+   "method": "hnsw (heuristic)",
+   "build_s": 23.69,
+   "param": "ef",
+   "value": 20,
+   "recall": 0.997,
+   "qps": 3376.2
+  },
+  {
+   "method": "hnsw (heuristic)",
+   "build_s": 23.69,
+   "param": "ef",
+   "value": 40,
+   "recall": 1.0,
+   "qps": 2280.9
+  },
+  {
+   "method": "hnsw (heuristic)",
+   "build_s": 23.69,
+   "param": "ef",
+   "value": 80,
+   "recall": 1.0,
+   "qps": 1715.7
+  },
+  {
+   "method": "hnsw (heuristic)",
+   "build_s": 23.69,
+   "param": "ef",
+   "value": 160,
+   "recall": 1.0,
+   "qps": 1222.7
+  },
+  {
+   "method": "hnsw (heuristic)",
+   "build_s": 23.69,
+   "param": "ef",
+   "value": 320,
+   "recall": 1.0,
+   "qps": 416.0
+  },
+  {
+   "method": "hnsw (naive select)",
+   "build_s": 8.46,
+   "param": "ef",
+   "value": 10,
+   "recall": 0.847,
+   "qps": 4709.2
+  },
+  {
+   "method": "hnsw (naive select)",
+   "build_s": 8.46,
+   "param": "ef",
+   "value": 20,
+   "recall": 0.916,
+   "qps": 3101.1
+  },
+  {
+   "method": "hnsw (naive select)",
+   "build_s": 8.46,
+   "param": "ef",
+   "value": 40,
+   "recall": 0.9315,
+   "qps": 2195.6
+  },
+  {
+   "method": "hnsw (naive select)",
+   "build_s": 8.46,
+   "param": "ef",
+   "value": 80,
+   "recall": 0.9425,
+   "qps": 1453.7
+  },
+  {
+   "method": "hnsw (naive select)",
+   "build_s": 8.46,
+   "param": "ef",
+   "value": 160,
+   "recall": 0.957,
+   "qps": 1011.5
+  },
+  {
+   "method": "hnsw (naive select)",
+   "build_s": 8.46,
+   "param": "ef",
+   "value": 320,
+   "recall": 0.9585,
+   "qps": 507.8
+  },
+  {
+   "method": "ivf",
+   "build_s": 0.13,
+   "param": "nprobe",
+   "value": 1,
+   "recall": 0.7725,
+   "qps": 25761.9
+  },
+  {
+   "method": "ivf",
+   "build_s": 0.13,
+   "param": "nprobe",
+   "value": 2,
+   "recall": 0.922,
+   "qps": 21750.9
+  },
+  {
+   "method": "ivf",
+   "build_s": 0.13,
+   "param": "nprobe",
+   "value": 4,
+   "recall": 0.9965,
+   "qps": 15497.2
+  },
+  {
+   "method": "ivf",
+   "build_s": 0.13,
+   "param": "nprobe",
+   "value": 8,
+   "recall": 1.0,
+   "qps": 9776.4
+  },
+  {
+   "method": "ivf",
+   "build_s": 0.13,
+   "param": "nprobe",
+   "value": 16,
+   "recall": 1.0,
+   "qps": 4477.4
+  },
+  {
+   "method": "ivf",
+   "build_s": 0.13,
+   "param": "nprobe",
+   "value": 32,
+   "recall": 1.0,
+   "qps": 2590.0
+  },
+  {
+   "method": "hnswlib (C++)",
+   "build_s": 0.46,
+   "param": "ef",
+   "value": 10,
+   "recall": 0.914,
+   "qps": 99047.4
+  },
+  {
+   "method": "hnswlib (C++)",
+   "build_s": 0.46,
+   "param": "ef",
+   "value": 20,
+   "recall": 0.9815,
+   "qps": 69572.0
+  },
+  {
+   "method": "hnswlib (C++)",
+   "build_s": 0.46,
+   "param": "ef",
+   "value": 40,
+   "recall": 0.9975,
+   "qps": 47207.5
+  },
+  {
+   "method": "hnswlib (C++)",
+   "build_s": 0.46,
+   "param": "ef",
+   "value": 80,
+   "recall": 1.0,
+   "qps": 28849.1
+  },
+  {
+   "method": "hnswlib (C++)",
+   "build_s": 0.46,
+   "param": "ef",
+   "value": 160,
+   "recall": 1.0,
+   "qps": 18544.3
+  },
+  {
+   "method": "hnswlib (C++)",
+   "build_s": 0.46,
+   "param": "ef",
+   "value": 320,
+   "recall": 1.0,
+   "qps": 8131.8
+  }
+ ]
+}
