@@ -79,6 +79,7 @@ def test_open_server_when_no_key_configured():
     c = TestClient(create_app(RAGPipeline(HashingEmbedder()), api_key=""))
     assert c.get("/api/stats").status_code == 200
     assert c.get("/api/health").json()["read_only"] is False
+    assert c.post("/api/docs", json={"title": "new", "text": "new content"}).status_code == 201
 
 
 def test_read_only_app_allows_queries_but_blocks_mutations():

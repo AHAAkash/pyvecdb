@@ -30,16 +30,17 @@ pyvecdb serve --demo               # http://127.0.0.1:8000  (loads 12 sample doc
 
 ## Live demo on Vercel
 
-The repository includes a Vercel entrypoint and function asset configuration for a public, read-only demo. To deploy it:
+The repository includes a Vercel entrypoint and function asset configuration for a public demo. To deploy it:
 
 1. Sign in at [Vercel](https://vercel.com/) and choose **Add New → Project**.
 2. Import `AHAAkash/pyvecdb` from GitHub and keep the repository root as the project root.
 3. Vercel detects the FastAPI app from `app.py` and the Python dependencies from `pyproject.toml`; choose **Deploy**.
 4. Open the generated `.vercel.app` URL to use the live demo.
 
-The Vercel demo preloads the bundled sample corpus and disables document add, delete, and reload endpoints.
-It uses in-memory storage: uploaded documents are not persistent, and data may reset when Vercel starts a new
-function instance. Use a persistent database or storage service before deploying this as a multi-user application.
+The Vercel demo preloads the bundled sample corpus and allows visitors to add and delete documents. It uses
+in-memory storage, so changes may be visible to other visitors using the same running function, but are not
+persistent and may reset when Vercel starts a new function instance. Do not upload private or sensitive content.
+Use a persistent database with authentication before deploying this as a production multi-user application.
 
 Use real models instead of the offline embedder (needs a running [Ollama](https://ollama.com)):
 
