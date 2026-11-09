@@ -80,7 +80,7 @@ def create_app(pipeline: RAGPipeline | None = None, api_key: str | None = None,
 
     @app.get("/api/health")
     def health():
-        return {"status": "ok", "version": __version__, "auth": bool(key)}
+        return {"status": "ok", "version": __version__, "auth": bool(key), "read_only": read_only}
 
     api = APIRouter(prefix="/api", dependencies=[Depends(require_key)])
 

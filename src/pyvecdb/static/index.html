@@ -21,7 +21,7 @@
     <span>Project guide</span>
   </button>
   <div class="top-meta">
-    <span class="live-status"><span class="live-dot" aria-hidden="true"></span> SYSTEM READY</span>
+    <span class="live-status"><span class="live-dot" aria-hidden="true"></span> <span id="instance-mode">SYSTEM READY</span></span>
     <ul class="chips" id="chips" aria-label="Engine status"></ul>
   </div>
 </header>
@@ -111,8 +111,9 @@ pyvecdb serve --demo</code></pre>
       </div>
       <span class="step-icon" aria-hidden="true">+</span>
     </div>
-    <p class="panel-intro">Start with a document. We’ll take care of chunking and embeddings.</p>
-    <form id="addform" class="stack">
+    <p class="panel-intro" id="add-intro">Start with a document. We’ll take care of chunking and embeddings.</p>
+    <p class="panel-intro" id="readonly-note" hidden>Public demo: browse the sample documents and try search. Changes are disabled.</p>
+    <form id="addform" class="stack" hidden>
       <label for="title">Document title</label>
       <input id="title" maxlength="300" placeholder="e.g. Product handbook" required>
       <label for="text">Content</label>

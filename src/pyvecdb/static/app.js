@@ -18,7 +18,7 @@ function h(tag, props = {}, ...kids) {
 }
 
 const INK = "#13222e", QUERY = "#c2185b", HIT = "#d99a00";
-const state = { points: [], documents: [], hits: new Map(), query: null, hover: -1, rays: 1 };
+const state = { points: [], documents: [], hits: new Map(), query: null, hover: -1, rays: 1, readOnly: false };
 const hue = (s) => { let x = 0; for (const c of s) x = (x * 31 + c.charCodeAt(0)) >>> 0; return x % 360; };
 const colour = (docId) => `hsl(${hue(docId)} 55% 40%)`;
 
@@ -140,16 +140,23 @@ function renderDocs(docs) {
   ul.replaceChildren(...visible.map((d) => {
     const dot = h("span", { class: "dot" });
     dot.style.setProperty("background", colour(d.doc_id));
+    const actions = [h("small", {}, `${d.chunks} ${d.chunks === 1 ? "chunk" : "chunks"} `)];
+    if (!state.readOnly) {
+      actions.push(h("button", { type: "button", "aria-label": `Remove ${d.title}`, onclick: () => removeDoc(d.doc_id) }, "Remove"));
+    }
     return h("li", {},
       h("span", { class: "name" }, dot, h("span", {}, d.title)),
-      h("span", {},
-        h("small", {}, `${d.chunks} ${d.chunks === 1 ? "chunk" : "chunks"} `),
-        h("button", { type: "button", "aria-label": `Remove ${d.title}`, onclick: () => removeDoc(d.doc_id) }, "Remove")));
+      h("span", {}, actions));
   }));
 }
 
 async function refresh() {
-  const [stats, docs, map] = await Promise.all([api("/stats"), api("/docs"), api("/map")]);
+  const [health, stats, docs, map] = await Promise.all([api("/health"), api("/stats"), api("/docs"), api("/map")]);
+  state.readOnly = health.read_only;
+  $("#instance-mode").textContent = state.readOnly ? "READ-ONLY DEMO" : "SYSTEM READY";
+  $("#add-intro").hidden = state.readOnly;
+  $("#readonly-note").hidden = !state.readOnly;
+  $("#addform").hidden = state.readOnly;
   renderChips(stats);
   state.documents = docs.documents;
   renderDocs(state.documents);

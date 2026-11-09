@@ -78,6 +78,7 @@ def test_backend_failure_becomes_502():
 def test_open_server_when_no_key_configured():
     c = TestClient(create_app(RAGPipeline(HashingEmbedder()), api_key=""))
     assert c.get("/api/stats").status_code == 200
+    assert c.get("/api/health").json()["read_only"] is False
 
 
 def test_read_only_app_allows_queries_but_blocks_mutations():
@@ -85,6 +86,7 @@ def test_read_only_app_allows_queries_but_blocks_mutations():
     load_demo(app.state.pipeline)
     c = TestClient(app)
 
+    assert c.get("/api/health").json()["read_only"] is True
     assert len(c.get("/api/docs").json()["documents"]) == 12
     assert c.post("/api/search", json={"query": "nprobe"}).status_code == 200
     assert c.post("/api/docs", json={"title": "new", "text": "new content"}).status_code == 403
