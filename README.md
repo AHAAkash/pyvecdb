@@ -3,6 +3,8 @@ A small vector database and grounded-RAG workbench in Python. It is built to be 
 inspectable**: every index is tested against exact search, every claim below has a script that reproduces it,
 and the web UI shows *where in embedding space* each answer came from.
 
+**Live demo:** [pyvecdb.vercel.app](https://pyvecdb.vercel.app/)
+
 ![recall vs speed](benchmarks/results/ann_clustered_10000x64_cosine.png)
 
 *Recall@10 vs queries/second on 10,000 clustered 64-d vectors (cosine, one CPU core). Up and to the right is
