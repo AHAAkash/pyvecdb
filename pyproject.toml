@@ -26,7 +26,7 @@ entrypoint = "app:app"
 where = ["src"]
 
 [tool.setuptools.package-data]
-pyvecdb = ["static/*", "data/*"]
+pyvecdb = ["static/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

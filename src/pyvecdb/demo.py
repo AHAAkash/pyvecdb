@@ -1,14 +1,13 @@
 from __future__ import annotations
 
-import json
-from pathlib import Path
+from copy import deepcopy
 
-_CORPUS = Path(__file__).parent / "data" / "mini_corpus.json"
+from ._demo_corpus import CORPUS
 
 
 def corpus() -> dict:
     """The bundled mini corpus: documents plus labelled questions (see benchmarks/eval_rag.py)."""
-    return json.loads(_CORPUS.read_text(encoding="utf-8"))
+    return deepcopy(CORPUS)
 
 
 def load_demo(pipeline) -> int:
