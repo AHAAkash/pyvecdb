@@ -261,6 +261,7 @@ async function run(kind) {
     state.query = data.query_xy; state.rays = 0; animateRays();
     const parts = [];
     if (kind === "ask") {
+      parts.push(h("h2", { class: "answer-heading" }, "Overall answer"));
       parts.push(h("div", { class: "answer" + (data.abstained ? " abstain" : "") }, renderAnswer(data.answer, items.length)));
       if (data.invalid_citations.length)
         parts.push(h("p", { class: "meta err" }, `The answer cites sources that do not exist: ${data.invalid_citations.join(", ")}.`));
