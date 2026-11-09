@@ -19,6 +19,9 @@ dev = ["pytest", "httpx", "ruff"]
 [project.scripts]
 pyvecdb = "pyvecdb.cli:main"
 
+[tool.vercel]
+entrypoint = "app.py"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

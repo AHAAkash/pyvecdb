@@ -36,14 +36,17 @@ class QueryIn(BaseModel):
 
 
 def create_app(pipeline: RAGPipeline | None = None, api_key: str | None = None,
-               cors_origins: list[str] | None = None) -> FastAPI:
+               cors_origins: list[str] | None = None,
+               read_only: bool | None = None) -> FastAPI:
     """Build the app. Defaults come from PYVECDB_EMBEDDER, PYVECDB_LLM, PYVECDB_DATA and
-    PYVECDB_API_KEY so ``uvicorn --factory pyvecdb.api:create_app`` works."""
+    PYVECDB_API_KEY so ``uvicorn --factory pyvecdb.api:create_app`` works.
+    Set read_only=True or PYVECDB_READ_ONLY=1 to disable document mutations."""
     if pipeline is None:
         pipeline = RAGPipeline(get_embedder(os.environ.get("PYVECDB_EMBEDDER", "hashing")),
                                get_generator(os.environ.get("PYVECDB_LLM", "extractive")),
                                path=os.environ.get("PYVECDB_DATA") or None)
     key = api_key if api_key is not None else (os.environ.get("PYVECDB_API_KEY") or None)
+    read_only = read_only if read_only is not None else os.environ.get("PYVECDB_READ_ONLY") == "1"
 
     app = FastAPI(title="pyvecdb", version=__version__,
                   docs_url="/api/swagger", openapi_url="/api/openapi.json", redoc_url=None)
@@ -71,6 +74,10 @@ def create_app(pipeline: RAGPipeline | None = None, api_key: str | None = None,
         if key and not (x_api_key and secrets.compare_digest(x_api_key.encode(), key.encode())):
             raise HTTPException(401, "missing or invalid X-API-Key header")
 
+    def require_writable() -> None:
+        if read_only:
+            raise HTTPException(403, "this instance is read-only")
+
     @app.get("/api/health")
     def health():
         return {"status": "ok", "version": __version__, "auth": bool(key)}
@@ -85,14 +92,14 @@ def create_app(pipeline: RAGPipeline | None = None, api_key: str | None = None,
     def list_docs():
         return {"documents": pipeline.list_docs()}
 
-    @api.post("/docs", status_code=201)
+    @api.post("/docs", status_code=201, dependencies=[Depends(require_writable)])
     def add_doc(doc: DocIn):
         try:
             return pipeline.ingest(doc.title, doc.text, doc.source)
         except ValueError as e:
             raise HTTPException(422, str(e)) from e
 
-    @api.delete("/docs/{doc_id}")
+    @api.delete("/docs/{doc_id}", dependencies=[Depends(require_writable)])
     def delete_doc(doc_id: str):
         if not pipeline.delete(doc_id):
             raise HTTPException(404, "no such document")
@@ -110,7 +117,7 @@ def create_app(pipeline: RAGPipeline | None = None, api_key: str | None = None,
         out["query_xy"] = pipeline.project(q.query)
         return out
 
-    @api.post("/demo")
+    @api.post("/demo", dependencies=[Depends(require_writable)])
     def demo():
         return {"loaded": load_demo(pipeline)}
 

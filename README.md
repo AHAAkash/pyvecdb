@@ -26,6 +26,19 @@ pip install -e ".[dev]"            # add ,bench for plots and the hnswlib refere
 pyvecdb serve --demo               # http://127.0.0.1:8000  (loads 12 sample documents)
 ```
 
+## Live demo on Vercel
+
+The repository includes a Vercel entrypoint for a public, read-only demo. To deploy it:
+
+1. Sign in at [Vercel](https://vercel.com/) and choose **Add New → Project**.
+2. Import `AHAAkash/pyvecdb` from GitHub and keep the repository root as the project root.
+3. Vercel detects the FastAPI app from `app.py` and the Python dependencies from `pyproject.toml`; choose **Deploy**.
+4. Open the generated `.vercel.app` URL to use the live demo.
+
+The Vercel demo preloads the bundled sample corpus and disables document add, delete, and reload endpoints.
+It uses in-memory storage: uploaded documents are not persistent, and data may reset when Vercel starts a new
+function instance. Use a persistent database or storage service before deploying this as a multi-user application.
+
 Use real models instead of the offline embedder (needs a running [Ollama](https://ollama.com)):
 
 ```bash

@@ -2,6 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from pyvecdb.api import create_app
+from pyvecdb.demo import load_demo
 from pyvecdb.embed import EmbeddingError, HashingEmbedder
 from pyvecdb.rag import RAGPipeline
 
@@ -77,3 +78,15 @@ def test_backend_failure_becomes_502():
 def test_open_server_when_no_key_configured():
     c = TestClient(create_app(RAGPipeline(HashingEmbedder()), api_key=""))
     assert c.get("/api/stats").status_code == 200
+
+
+def test_read_only_app_allows_queries_but_blocks_mutations():
+    app = create_app(RAGPipeline(HashingEmbedder()), api_key="", read_only=True)
+    load_demo(app.state.pipeline)
+    c = TestClient(app)
+
+    assert len(c.get("/api/docs").json()["documents"]) == 12
+    assert c.post("/api/search", json={"query": "nprobe"}).status_code == 200
+    assert c.post("/api/docs", json={"title": "new", "text": "new content"}).status_code == 403
+    assert c.delete("/api/docs/ivf").status_code == 403
+    assert c.post("/api/demo").status_code == 403
