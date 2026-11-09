@@ -20,7 +20,7 @@ dev = ["pytest", "httpx", "ruff"]
 pyvecdb = "pyvecdb.cli:main"
 
 [tool.vercel]
-entrypoint = "app.py"
+entrypoint = "app:app"
 
 [tool.setuptools.packages.find]
 where = ["src"]
