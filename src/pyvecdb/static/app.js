@@ -154,6 +154,7 @@ async function refresh() {
   const [health, stats, docs, map] = await Promise.all([api("/health"), api("/stats"), api("/docs"), api("/map")]);
   state.readOnly = health.read_only;
   $("#instance-mode").textContent = state.readOnly ? "READ-ONLY DEMO" : "SYSTEM READY";
+  $("#add-h").textContent = state.readOnly ? "Sample collection" : "Add knowledge";
   $("#add-intro").hidden = state.readOnly;
   $("#readonly-note").hidden = !state.readOnly;
   $("#addform").hidden = state.readOnly;
