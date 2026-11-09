@@ -28,7 +28,7 @@ pyvecdb serve --demo               # http://127.0.0.1:8000  (loads 12 sample doc
 
 ## Live demo on Vercel
 
-The repository includes a Vercel entrypoint for a public, read-only demo. To deploy it:
+The repository includes a Vercel entrypoint and function asset configuration for a public, read-only demo. To deploy it:
 
 1. Sign in at [Vercel](https://vercel.com/) and choose **Add New → Project**.
 2. Import `AHAAkash/pyvecdb` from GitHub and keep the repository root as the project root.
