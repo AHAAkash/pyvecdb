@@ -18,7 +18,7 @@ function h(tag, props = {}, ...kids) {
 }
 
 const INK = "#13222e", QUERY = "#c2185b", HIT = "#d99a00";
-const state = { points: [], documents: [], hits: new Map(), query: null, hover: -1, rays: 1, readOnly: false };
+const state = { points: [], documents: [], hits: new Map(), query: null, hover: -1, rays: 1, readOnly: false, addFormExpanded: true };
 const hue = (s) => { let x = 0; for (const c of s) x = (x * 31 + c.charCodeAt(0)) >>> 0; return x % 360; };
 const colour = (docId) => `hsl(${hue(docId)} 55% 40%)`;
 
@@ -150,6 +150,15 @@ function renderDocs(docs) {
   }));
 }
 
+function setAddFormExpanded(expanded) {
+  state.addFormExpanded = expanded;
+  $("#addform").hidden = !expanded;
+  const toggle = $("#add-toggle");
+  toggle.textContent = expanded ? "−" : "+";
+  toggle.setAttribute("aria-expanded", String(expanded));
+  toggle.setAttribute("aria-label", `${expanded ? "Hide" : "Show"} add knowledge form`);
+}
+
 async function refresh() {
   const [health, stats, docs, map] = await Promise.all([api("/health"), api("/stats"), api("/docs"), api("/map")]);
   state.readOnly = health.read_only;
@@ -157,7 +166,8 @@ async function refresh() {
   $("#add-h").textContent = state.readOnly ? "Sample collection" : "Add knowledge";
   $("#add-intro").hidden = state.readOnly;
   $("#readonly-note").hidden = !state.readOnly;
-  $("#addform").hidden = state.readOnly;
+  $("#add-toggle").hidden = state.readOnly;
+  setAddFormExpanded(!state.readOnly && state.addFormExpanded);
   renderChips(stats);
   state.documents = docs.documents;
   renderDocs(state.documents);
@@ -167,6 +177,8 @@ async function refresh() {
   $("#map-status").textContent = state.points.length ? "Index up to date" : "Waiting for data";
   draw();
 }
+
+$("#add-toggle").addEventListener("click", () => setAddFormExpanded($("#addform").hidden));
 
 function say(msg, isErr = false) { const el = $("#addmsg"); el.textContent = msg; el.className = "msg" + (isErr ? " err" : ""); }
 
