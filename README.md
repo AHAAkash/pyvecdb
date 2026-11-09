@@ -1,5 +1,4 @@
 # pyvecdb
-
 A small vector database and grounded-RAG workbench in Python. It is built to be **correct, measurable and
 inspectable**: every index is tested against exact search, every claim below has a script that reproduces it,
 and the web UI shows *where in embedding space* each answer came from.
